@@ -9,17 +9,17 @@ using namespace filesystem;
 
 int main()
 {
-	cout << "Path: ";
+	wcout << L"Path: ";
 	path target_path;
-	cin >> target_path;
+	wcin >> target_path;
 
-	cout << "Extensions ('.cpp' for example. '.' to end): ";
-	unordered_set<string> ext;
-	for (string buffer; cin >> buffer && buffer != ".";)
+	wcout << L"Extensions ('.cpp' for example. '.' to end): ";
+	unordered_set<wstring> ext;
+	for (wstring buffer; wcin >> buffer && buffer != L".";)
 	{
 		ext.emplace(move(buffer));
 	}
-	cout << "\n\n";
+	wcout << L"\n\n";
 
 	auto total_chars = 0llu;
 	auto total_lines = 0llu;
@@ -33,12 +33,12 @@ int main()
     for (auto&& e : recursive_directory_iterator{ target_path })
     {
 		if (!e.is_regular_file()) continue;
-	    if (ext.find(e.path().extension().string()) != ext.end())
+	    if (ext.find(e.path().extension().wstring()) != ext.end())
 	    {
 			auto chars = 0llu;
 			auto lines = 0llu;
-		    ifstream file{ e.path() };
-			for (string line; getline(file, line);)
+		    wifstream file{ e.path() };
+			for (wstring line; getline(file, line);)
 			{
 				if (!line.empty())
 				{
@@ -61,18 +61,18 @@ int main()
 			check_max(lines, max_lines, most_lines);
 			check_max(chars_per_lines, max_chars_per_lines, most_chars_per_lines);
 
-			cout << "File " << e.path() << '\n'
-	    		<< "  characters: " << chars << "\t  lines: " << lines << "\t characters per lines: " << chars_per_lines << "\n\n";
+			wcout << L"File " << e.path() << L'\n'
+	    		<< L"  characters: " << chars << L"\t  lines: " << lines << L"\t characters per lines: " << chars_per_lines << L"\n\n";
 
 			total_chars += chars;
 			total_lines += lines;
 	    }
     }
 
-	cout << "\nTotal characters: " << total_chars << '\n'
-		<< "Total lines: " << total_lines << '\n'
-		<< "Characters per lines: " << total_chars / total_lines << "\n\n"
-		<< "File with most characters:\n  " << max_chars << " characters with\n    " << most_chars << "\n\n"
-		<< "File with most lines:\n  " << max_lines << " lines with\n    " << most_lines << "\n\n"
-		<< "File with most characters per lines:\n  " << max_chars_per_lines << " characters per lines with\n    " << most_chars_per_lines << '\n';
+	wcout << L"\nTotal characters: " << total_chars << L'\n'
+		<< L"Total lines: " << total_lines << L'\n'
+		<< L"Characters per lines: " << total_chars / total_lines << L"\n\n"
+		<< L"File with most characters:\n  " << max_chars << L" characters with\n    " << most_chars << L"\n\n"
+		<< L"File with most lines:\n  " << max_lines << L" lines with\n    " << most_lines << L"\n\n"
+		<< L"File with most characters per lines:\n  " << max_chars_per_lines << L" characters per lines with\n    " << most_chars_per_lines << L'\n';
 }
