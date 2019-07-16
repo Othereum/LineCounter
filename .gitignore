@@ -1,0 +1,16 @@
+
+.vs/LineCounter/v16/.suo
+*.db
+*.opendb
+*.ipch
+*.ilk
+*.log
+*.obj
+*.pdb
+*.tlog
+*.idb
+*.sln
+*.vcxproj
+*.filters
+*.user
+*.exe
